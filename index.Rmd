@@ -14,4 +14,4 @@ site: distill::distill_website
 ---
  
 I am an ISA Certified Arborist living in Southern California. 
-Currently I am a masters student of Environmental Data Science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built environment.
+Currently I am a masters student of environmental data science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built environment.
