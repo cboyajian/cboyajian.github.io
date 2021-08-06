@@ -1,18 +1,17 @@
 ---
 title: "Clarissa Boyajian"
-description: |
-  Welcome to my personal website. I hope you enjoy it!
+image: "clarissa.jpg"
+links:
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/clarissa-boyajian-1089ba37"
+  - label: GitHub
+    url: "https://cboyajian.github.io/"
+  - label: Email
+    url: "mailto:cboyajian@bren.ucsb.edu"
+output:
+  postcards::jolla
 site: distill::distill_website
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
-```
-
+ 
+I am an ISA Certified Arborist living in Southern California. 
+Currently I am a masters student of Environmental Data Science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built environment.
