@@ -27,7 +27,8 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   scale_color_hue(l = 50, c = 65) +
   labs(title = "Palmer Penguins", 
        x = "Flipper Length (mm)", 
-       y = "Body Mass (g)")
+       y = "Body Mass (g)",
+       color = "Species")
 ```
 
 Here I used the `ggplot` `geom_point()` function to create a scatter plot that compares the flipper lengths (mm) to the body mass (g). I added `scale_color_hue(l = 50, c = 65)` to make the species indication colors darker. I also added a title and updated labels for the the axis. I was unable to figure out how to change the legend title.
