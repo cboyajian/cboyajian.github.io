@@ -6,23 +6,30 @@
       "description": "About Clarissa Boyajian",
       "author": [],
       "contents": "\nI am an ISA Certified Arborist with specific experience in urban forestry in Southern California. I grew up hearing stories of my grandparents’ work to save a beloved Chicago Ginkgo tree. This led me to study Urban and Environmental Policy at Occidental College. Currently I am a master’s candidate of Environmental Data Science at the Bren School of Environmental Science and Management at UC Santa Barbara. I began my urban forestry career in 2016, training volunteers to plan and execute tree planting and care projects within their own neighborhoods. I then managed the environmental services department at a direct service nonprofit. There I focused on staff management and unit budgets, wrote successful state grants, and collaborated with the city and local nonprofits. Throughout my career I have experienced an absence of sufficient data and analysis on many, which create less effective programs that do not fully serve those most impacted by climate change. I hope to use my data science degree to bring more analysis and technical support to the field of urban forestry. At the root of it all, my interest is in working collaboratively to create equitable connection between people and the built and wild environments.\n\n\n\n",
-      "last_modified": "2021-08-09T14:08:00-07:00"
+      "last_modified": "2021-08-10T11:20:26-07:00"
+    },
+    {
+      "path": "blog.html",
+      "title": "My Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-08-10T11:20:26-07:00"
     },
     {
       "path": "cv.html",
       "title": "Clarissa Boyajian CV",
       "description": "Work experience",
       "author": [],
-      "contents": "\n\n\n\n\n\n\n",
-      "last_modified": "2021-08-09T14:08:02-07:00"
+      "contents": "\nEducation\nMasters candidate of Environmental Data Science at Brend School of Environmental Science and Management at University of California Santa Barbara\nBachelors of Arts: Urban and Environmental Policy at Occidental College\nWork Experience\nKoreatown Youth and Community Center\nTreePeople\n\n\n\n",
+      "last_modified": "2021-08-10T11:20:27-07:00"
     },
     {
       "path": "index.html",
       "title": "Clarissa Boyajian",
       "author": [],
-      "contents": "\n\n          \n          \n          My Personal Website\n          \n          \n          Home\n          About\n          CV\n          ☰\n          \n          \n      \n        \n          \n            Clarissa Boyajian\n          \n          \n            \n              I am an ISA Certified Arborist living in Southern California. Currently I am a masters candidate of environmental data science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built and wild environment.\n            \n            \n              I am an ISA Certified Arborist living in Southern California. Currently I am a masters candidate of environmental data science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built and wild environment.\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
-      "last_modified": "2021-08-09T14:08:02-07:00"
+      "contents": "\n\n          \n          \n          My Personal Website\n          \n          \n          Home\n          About\n          CV\n          Blog\n          ☰\n          \n          \n      \n        \n          \n            Clarissa Boyajian\n          \n          \n            \n              I am an ISA Certified Arborist living in Southern California. Currently I am a masters candidate of environmental data science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built and wild environment.\n            \n            \n              I am an ISA Certified Arborist living in Southern California. Currently I am a masters candidate of environmental data science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built and wild environment.\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-08-10T11:20:27-07:00"
     }
   ],
-  "collections": []
+  "collections": ["posts/posts.json"]
 }

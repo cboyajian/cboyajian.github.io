@@ -1,0 +1,36 @@
+---
+title: "A function I learned"
+description: |
+  Second Practice Blog Post
+author:
+  - name: Clarissa Boyajian
+    url: {}
+date: 08-10-2021
+output:
+  distill::distill_article:
+    self_contained: false
+preview: images/palmerpenguin.png
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+## Using `ggplot` and `geom_point()` to Explore Palmer Penguin Data
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species)) +
+  scale_color_hue(l = 50, c = 65) +
+  labs(title = "Palmer Penguins", 
+       x = "Flipper Length (mm)", 
+       y = "Body Mass (g)")
+```
+
+Here I used the `ggplot` `geom_point()` function to create a scatter plot that compares the flipper lengths (mm) to the body mass (g). I added `scale_color_hue(l = 50, c = 65)` to make the species indication colors darker. I also added a title and updated labels for the the axis. I was unable to figure out how to change the legend title.
+
+As you can see, the flipper length (mm) and body mass (g) are positively correlated in all penguin species.
+

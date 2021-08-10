@@ -9,8 +9,11 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 ```
 
-```{r}
-ggplot(data = diamonds, aes(x = carat, y = price)) +
-  geom_point(aes(color = price)) 
-```
+## Education
+- Masters candidate of Environmental Data Science at Brend School of Environmental Science and Management at University of California Santa Barbara
+- Bachelors of Arts: Urban and Environmental Policy at Occidental College
 
+
+## Work Experience
+- Koreatown Youth and Community Center
+- TreePeople

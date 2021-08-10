@@ -1,0 +1,36 @@
+[
+  {
+    "path": "posts/2021-08-10-a-function-i-learned/",
+    "title": "A function I learned",
+    "description": "Second Practice Blog Post",
+    "author": [
+      {
+        "name": "Clarissa Boyajian",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-10",
+    "categories": [],
+    "contents": "\nUsing ggplot and geom_point() to Explore Palmer Penguin Data\n\n\n\nHere I used the ggplot geom_point() function to create a scatter plot that compares the flipper lengths (mm) to the body mass (g). I added scale_color_hue(l = 50, c = 65) to make the species indication colors darker. I also added a title and updated labels for the the axis. I was unable to figure out how to change the legend title.\nAs you can see, the flipper length (mm) and body mass (g) are positively correlated in all penguin species.\n\n\n\n",
+    "preview": "posts/2021-08-10-a-function-i-learned/images/palmerpenguin.png",
+    "last_modified": "2021-08-10T11:20:04-07:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/2021-08-10-hello/",
+    "title": "My First Blog Post",
+    "description": "First Practice Blog",
+    "author": [
+      {
+        "name": "Clarissa Boyajian",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-10",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-08-10T10:37:46-07:00",
+    "input_file": {}
+  }
+]
