@@ -14,7 +14,7 @@ site: distill::distill_website
 ---
 
 # Bio
-Clarissa is an urban forester and graduate student living in Southern California. She is currently studying Environmental Data Science at the Bren School of Environmental Science and Management. She loves talking about baking, her cross-eyed cat, and how people interact with the built and wild environment.
+Clarissa is a certified arborist with expertise in urban forestry nonprofit management. She is currently studying Environmental Data Science at the Bren School of Environmental Science and Management. She enjoys talking about baking, her cross-eyed cat, and how people interact with the built and wild environment.
 
 # Education
 **Bren School of Environmental Science and Management, University of California Santa Barbara**  

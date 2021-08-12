@@ -1,5 +1,5 @@
 ---
-title: "Clarissa Boyajian CV"
+title: "CV"
 ---
 
 ```{r setup, include=FALSE}
@@ -8,7 +8,7 @@ library(tidyverse)
 ```
 
 ## Education and Certifications
-- **Masters candidate of Environmental Data Science** | Bren School of Environmental Science and Management at University of California Santa Barbara  
+- **Masters candidate of Environmental Data Science** | Bren School of Environmental Science and Management, University of California Santa Barbara  
 - **Bachelors of Arts, Urban and Environmental Policy** | Occidental College | 2013  
   Thesis: [Opportunities and Barriers for Access to "Good" Food with a Focus on Participation by Low-income Communities](https://www.oxy.edu/sites/default/files/assets/UEP/Comps/2012/2013/Boyajian_Clarissa_All%20Bulk%20Everything.pdf)
 - **Certified Arborist** WE-12099A | International Society of Arboriculture, Western Chapter | 2018
