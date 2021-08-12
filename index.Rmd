@@ -9,9 +9,19 @@ links:
   - label: Email
     url: "mailto:cboyajian@bren.ucsb.edu"
 output:
-  postcards::jolla
+  postcards::trestles
 site: distill::distill_website
 ---
- 
-I am an ISA Certified Arborist living in Southern California. 
-Currently I am a masters candidate of environmental data science at the Bren School of Environmental Management and Science at UC Santa Barbara. I love talking about baking, my cross-eyed cat, and how people interact with the built and wild environment.
+
+# Bio
+Clarissa is an urban forester and graduate student living in Southern California. She is currently studying Environmental Data Science at the Bren School of Environmental Science and Management. She loves talking about baking, her cross-eyed cat, and how people interact with the built and wild environment.
+
+# Education
+**Bren School of Environmental Science and Management, University of California Santa Barbara**  
+candidate for M.S. | Environmental Data Science  
+**Occidental College | Los Angeles, CA**  
+B.A. in Urban and Environmental Policy  
+
+# Experience
+**Koreatown Youth and Community Center** | Environmental Services Manager | 2017 - 2021  
+**TreePeople** | Urban Forestry Manager | 2015-2017
