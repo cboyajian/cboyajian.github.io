@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-08-16-using-casewhen-to-help-wrangel-data/",
+    "title": "Data Wrangling: using `case_when()`",
+    "description": "Using `case_when()` to wrangle data to label observations based on another variable.",
+    "author": [
+      {
+        "name": "Clarissa Boyajian",
+        "url": {}
+      }
+    ],
+    "date": "2021-08-16",
+    "categories": [],
+    "contents": "\ncase_when(): A wonderfully helpful function\nYou can use case_when() to help\n\n\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-08-16T16:59:24-07:00",
+    "input_file": "using-casewhen-to-help-wrangel-data.knit.md"
+  },
+  {
     "path": "posts/2021-08-10-a-function-i-learned/",
     "title": "A function I learned",
     "description": "Second Practice Blog Post",

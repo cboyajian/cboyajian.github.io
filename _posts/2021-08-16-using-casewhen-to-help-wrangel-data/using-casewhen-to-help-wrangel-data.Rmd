@@ -1,0 +1,29 @@
+---
+title: "Data Wrangling: using `case_when()`"
+description: |
+  Using `case_when()` to wrangle data to label observations based on another variable.
+author:
+  - name: Clarissa Boyajian
+    url: {}
+date: 08-16-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+## `case_when()`: A wonderfully helpful function
+You can use `case_when()` to help 
+```{r}
+
+
+```
+
+
+

@@ -28,7 +28,7 @@ html {
   --aside-color:     rgba(0, 0, 0, 0.6);
   --fig-cap-color:   rgba(0, 0, 0, 0.6);
   /*-- Specify custom fonts ~~~ must be imported above   --*/
-  --heading-font:    Quicksand:wght@400;
+  --heading-font:    Quicksand;
   --mono-font:       Quicksand;
   --body-font:       Quicksand;
   --navbar-font:     Quicksand;  /* websites + blogs only */
