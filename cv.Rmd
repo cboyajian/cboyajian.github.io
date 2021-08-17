@@ -8,18 +8,25 @@ library(tidyverse)
 ```
 
 ## Education and Certifications
-- **Masters candidate of Environmental Data Science** | Bren School of Environmental Science and Management, University of California Santa Barbara  
-- **Bachelors of Arts, Urban and Environmental Policy** | Occidental College | 2013  
-  Thesis: [Opportunities and Barriers for Access to "Good" Food with a Focus on Participation by Low-income Communities](https://www.oxy.edu/sites/default/files/assets/UEP/Comps/2012/2013/Boyajian_Clarissa_All%20Bulk%20Everything.pdf)
-- **Certified Arborist** WE-12099A | International Society of Arboriculture, Western Chapter | 2018
+**Masters candidate of Environmental Data Science** | Bren School of Environmental Science and Management, University of California Santa Barbara  
+
+**Bachelors of Arts, Urban and Environmental Policy** | Occidental College | 2013  
+  Thesis: [Opportunities and Barriers for Access to "Good" Food with a Focus on Participation by Low-income Communities](https://www.oxy.edu/sites/default/files/assets/UEP/Comps/2012/2013/Boyajian_Clarissa_All%20Bulk%20Everything.pdf)  
+
+**Certified Arborist** | International Society of Arboriculture, Western Chapter | 2018  
+WE-12099A
 
 
 ## Work Experience
-- **Koreatown Youth and Community Center** | Los Angeles, CA | 2017 - 2021
-  + Environmental Services Manager | 2019 - 2021
-  + Urban Forestry Coordinator | 2017 - 2019
-- **TreePeople** | Los Angeles, CA | 2014 - 2017
-  + Urban Forestry Manager
-- **Good Eggs** | Los Angeles, CA | 2014 - 2015
-  + Produce Inventory and Ordering Specialist
+**Koreatown Youth and Community Center** | Los Angeles, CA | 2017 - 2021  
+  Environmental Services Manager | 2019 - 2021  
+  
+  Urban Forestry Coordinator | 2017 - 2019  
+
+**TreePeople** | Los Angeles, CA | 2014 - 2017  
+  Urban Forestry Manager  
+
+**Good Eggs** | Los Angeles, CA | 2014 - 2015  
+  Produce Inventory and Ordering Specialist  
+  
 
