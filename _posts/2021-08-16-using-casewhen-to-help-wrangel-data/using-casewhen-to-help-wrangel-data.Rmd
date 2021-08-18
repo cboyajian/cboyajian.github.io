@@ -19,6 +19,7 @@ library(palmerpenguins)
 ```
 
 ## `case_when()`: A wonderfully helpful function
+
 You can use `case_when()` to help 
 ```{r}
 
