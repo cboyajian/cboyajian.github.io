@@ -1,0 +1,29 @@
+---
+title: "Baklava Recipe"
+description: |
+  Boyajian family baklava recipe
+author:
+  - name: Clarissa Boyajian
+date: 08-19-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+This recipe is a compilation of online recipes that was created by my mom, Laurel Boyajian, in an attempt to recreate the baklava from her childhood baked by her Armenian aunts.
+
+#### Supplies:
+- Rectangular 
+
+#### Ingredients: 
+- Filo dough (usually found in the frozen section of the grocery store by the pie crusts)
+- 
+
+#### Instructions:
+- 
+
