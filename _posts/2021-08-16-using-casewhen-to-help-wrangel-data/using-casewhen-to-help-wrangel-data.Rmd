@@ -20,6 +20,8 @@ library(palmerpenguins)
 
 ## `case_when()`: A wonderfully helpful function
 
+Case_when() is a function that can be used to 
+
 You can use `case_when()` to help 
 ```{r}
 
