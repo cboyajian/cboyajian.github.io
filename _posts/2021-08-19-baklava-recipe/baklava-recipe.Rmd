@@ -15,15 +15,28 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-This recipe is a compilation of online recipes that was created by my mom, Laurel Boyajian, in an attempt to recreate the baklava from her childhood baked by her Armenian aunts.
+This recipe is a compilation of online recipes that was created by my mom, Laurel Boyajian, in an attempt to recreate the baklava from her childhood baked by her Armenian aunts. 
 
-#### Supplies:
-- Rectangular 
+**Recipe modifications:** <br>
+Vegan: you can easily make this recipe vegan by using a vegan butter - no other changes needed. <br>
+Sugar: you can cut down the total amount of sugar used to make a less sweet version or substitute honey instead of sugar. 
 
-#### Ingredients: 
+***
+
+### **Supplies:**
+- Rectangular baking dish
+- Food processor
+- Pastry brush
+
+### **Ingredients** (filling, syrup, and dough): 
 - Filo dough (usually found in the frozen section of the grocery store by the pie crusts)
-- 
+- 6 Tbs rose water
+- () cups sugar
+- () cups water
+- () lbs raw nuts (I use a combination of 50% walnut, 25% hazelnut, and 25% pistachio)
+- () butter (melted)
 
-#### Instructions:
-- 
+### **Instructions:**
+1. Blend all of the nuts and () cups of the sugar until (), transfer to 
+2. Mix in () Tbsp of rose water
 
