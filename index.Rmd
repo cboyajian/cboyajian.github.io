@@ -14,7 +14,7 @@ site: distill::distill_website
 ---
 
 # Bio
-Clarissa is a certified arborist with expertise in urban forestry nonprofit management. She is currently studying Environmental Data Science at the Bren School of Environmental Science and Management. She enjoys talking about her cross-eyed cat, baking, and how people interact with the built and wild environment.
+Clarissa is a certified arborist with expertise in urban forestry nonprofit management. She is currently studying Environmental Data Science at the Bren School of Environmental Science and Management. She enjoys talking about her cross-eyed cat, baking, and how people interact with built and wild environments.
 
 # Education
 **Bren School of Environmental Science and Management, University of California Santa Barbara**  
