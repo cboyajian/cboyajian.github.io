@@ -92,7 +92,7 @@ Los Angeles, CA
 
 2021 - 2019
 
-::: concise
+
 - Manage Environmental Services department’s $2 million budget.
 - Manage department’s 20+ field and office staff, including: funding, recruiting, hiring, training, and evaluating.
 - Direct department’s vision and goals for graffiti removal, clean streets, landscaping, tree planting, tree establishment care, and
@@ -101,7 +101,7 @@ community engagement teams.
 going reporting and tracking, and managing relationships with related funders.
 - Continued role in cultivating and maintaining excellent working relationships with other urban forestry nonprofit partners
 throughout California and nation-wide, and city and state agencies.
-:::
+
 
 ### Urban Forestry Coordinator
 
@@ -111,19 +111,19 @@ Los Angeles, CA
 
 2019 - 2017
 
-::: concise
+
 - Taught R language to beginners. 
 - Wrote Shiny app demos.
 - Converted statistical tutorials from SPSS to R language.
-:::
+
 
 ### Urban Forestry Manager
 
-My Health Gene Technology Co., Ltd.
+TreePeople
 
-Beijing, China
+Los Angeles, CA
 
-2015 - 2016
+2015 - 2017
 
 ::: concise
 - Analyzed whole-exome sequencing data. 
