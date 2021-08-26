@@ -24,14 +24,17 @@ Contact Info {#contact}
 Skills {#skills}
 --------------------------------------------------------------------------------
 
-- Experienced in statistical analysis, statistical learning models, and optimization methods.
+- Excellent organizational skills: experienced in management of budgets, contracts, and grants, supervising staff and volunteers, and leading large teams.
+
+- Strong relationship building skills: experienced in developing and maintaining mutually supportive partnerships.
 
 - Full experience with next generation sequencing data analysis.
 
+
 - Highly skilled in R, Bash, Perl, Python, LaTeX
 
-- Excellent organizational skills; experience managing budgets, contracts, and grants, mentoring staff and volunteers, and leading large teams. 
-- Strong relationship building skills; experience developing and maintaining mutually supportive partnerships. Excellent qualitative and quantitative research experience gathering and analyzing data. 
+
+- Excellent qualitative and quantitative research experience gathering and analyzing data. 
 - Adept at SalesForce, Microsoft Office Suite, Google Suite, Plan-it Geo TreePlotter Database, and Apple and Windows OS. 
 - Limited working proficiency of written and spoken Spanish.
 
