@@ -1,5 +1,6 @@
 name: "cboyajian.github.io"
 title: "Clarissa Boyajian"
+theme: theme.css
 description: |
   My Personal Website
 output_dir: "docs"
@@ -14,4 +15,3 @@ navbar:
     - text: "Blog"
       href: blog.html
 output: distill::distill_article
-theme: theme.css
