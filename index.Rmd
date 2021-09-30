@@ -1,6 +1,6 @@
 ---
 title: "Clarissa Boyajian"
-image: "clarissa.jpg"
+image: "headshot_2020.jpg"
 links:
   - label: LinkedIn
     url: "https://www.linkedin.com/in/clarissa-boyajian-1089ba37"
@@ -14,14 +14,14 @@ site: distill::distill_website
 ---
 
 # Bio
-Clarissa is a certified arborist with expertise in urban forestry nonprofit management. She is currently studying Environmental Data Science at the Bren School of Environmental Science and Management. She enjoys talking about her cross-eyed cat, baking, and how people interact with built and wild environments.
+Clarissa is a certified arborist with expertise in urban forestry nonprofit management. She is currently a part of the inaugural cohort of the Master of Environmental Data Science program at the Bren School of Environmental Science & Management. She enjoys talking about her cross-eyed cat, swapping delicious baking recipes, and thinking about how people interact with built and wild environments.
 
 # Education
-**Bren School of Environmental Science and Management, University of California Santa Barbara**  
-Candidate for M.S. in Environmental Data Science  
-**Occidental College** | Los Angeles, CA  
-B.A. in Urban and Environmental Policy  
+**Bren School of Environmental Science & Management, University of California: Santa Barbara**\
+Master of Environmental Data Science\
+**Occidental College** | Los Angeles, CA\
+Bachelor of Arts in Urban & Environmental Policy\
 
 # Experience
-**Koreatown Youth and Community Center** | Environmental Services Manager | 2017 - 2021  
+**Koreatown Youth & Community Center** | Environmental Services Manager | 2017 - 2021\
 **TreePeople** | Urban Forestry Manager | 2015-2017
