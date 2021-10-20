@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Clarissa Boyajian: Baklava Recipe</title>
@@ -117,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["baklava-recipe_files/anchor-4.2.2/anchor.min.js","baklava-recipe_files/bowser-1.9.3/bowser.min.js","baklava-recipe_files/distill-2.2.21/template.v2.js","baklava-recipe_files/header-attrs-2.9/header-attrs.js","baklava-recipe_files/jquery-1.11.3/jquery.min.js","baklava-recipe_files/popper-2.6.0/popper.min.js","baklava-recipe_files/tippy-6.2.7/tippy-bundle.umd.min.js","baklava-recipe_files/tippy-6.2.7/tippy-light-border.css","baklava-recipe_files/tippy-6.2.7/tippy.css","baklava-recipe_files/tippy-6.2.7/tippy.umd.min.js","baklava-recipe_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["baklava-recipe_files/anchor-4.2.2/anchor.min.js","baklava-recipe_files/bowser-1.9.3/bowser.min.js","baklava-recipe_files/distill-2.2.21/template.v2.js","baklava-recipe_files/header-attrs-2.11/header-attrs.js","baklava-recipe_files/header-attrs-2.9/header-attrs.js","baklava-recipe_files/jquery-1.11.3/jquery.min.js","baklava-recipe_files/jquery-3.6.0/jquery-3.6.0.js","baklava-recipe_files/jquery-3.6.0/jquery-3.6.0.min.js","baklava-recipe_files/jquery-3.6.0/jquery-3.6.0.min.map","baklava-recipe_files/popper-2.6.0/popper.min.js","baklava-recipe_files/tippy-6.2.7/tippy-bundle.umd.min.js","baklava-recipe_files/tippy-6.2.7/tippy-light-border.css","baklava-recipe_files/tippy-6.2.7/tippy.css","baklava-recipe_files/tippy-6.2.7/tippy.umd.min.js","baklava-recipe_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -463,7 +464,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1870,7 +1871,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2352,8 +2356,8 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2373,7 +2377,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Baklava Recipe","description":"Boyajian family baklava recipe","authors":[{"author":"Clarissa Boyajian","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-08-19T00:00:00.000+00:00","citationText":"Boyajian, 2021"}
+{"title":"Baklava Recipe","description":"Boyajian family baklava recipe","authors":[{"author":"Clarissa Boyajian","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-08-19T00:00:00.000-07:00","citationText":"Boyajian, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2411,7 +2415,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 
 <div class="d-article">
-<p>This recipe is a compilation of online recipes that was created by my mom, Laurel Boyajian, in an attempt to recreate the baklava from her childhood baked by her Armenian aunts.</p>
+<p>This recipe is a compilation of online recipes created by my mom, Laurel Boyajian, in an attempt to recreate the baklava baked by her Armenian aunts from her childhood.</p>
 <p><strong>Recipe modifications:</strong> <br> Vegan: you can easily make this recipe vegan by using a vegan butter - no other changes needed. <br> Sugar: you can cut down the total amount of sugar used to make a less sweet version or substitute honey instead of sugar.</p>
 <hr />
 <h3 id="supplies"><strong>Supplies:</strong></h3>
@@ -2422,17 +2426,44 @@ d-appendix d-footnote-list a.footnote-backlink {
 </ul>
 <h3 id="ingredients-filling-syrup-and-dough"><strong>Ingredients</strong> (filling, syrup, and dough):</h3>
 <ul>
-<li>Filo dough (usually found in the frozen section of the grocery store by the pie crusts)</li>
+<li>Filo dough (usually found in the frozen section of the grocery store near the pie crusts)</li>
 <li>6 Tbs rose water</li>
-<li>() cups sugar</li>
-<li>() cups water</li>
-<li>() lbs raw nuts (I use a combination of 50% walnut, 25% hazelnut, and 25% pistachio)</li>
-<li>() butter (melted)</li>
+<li>2 cups sugar</li>
+<li>3/4 cup water</li>
+<li>1 lb raw nuts (I use a combination of 50% walnut, 25% hazelnut, and 25% pistachio)</li>
+<li>1 1/3 - 2 cups butter (melted)</li>
 </ul>
-<h3 id="instructions"><strong>Instructions:</strong></h3>
+<h3 id="syrup-instructions"><strong>Syrup Instructions:</strong></h3>
 <ol type="1">
-<li>Blend all of the nuts and () cups of the sugar until (), transfer to</li>
-<li>Mix in () Tbsp of rose water</li>
+<li>Boil together for 2 minutes 3/4 cup water and 1 1/2 cups sugar</li>
+<li>Let cool slightly (5-10 minutes)</li>
+<li>Stir in 2 Tbsp rose water</li>
+<li>Refrigerate (NOTE: store in liquid measuring cup, if available, for later pouring ease)</li>
+</ol>
+<h3 id="filling-instructions"><strong>Filling Instructions:</strong></h3>
+<ol type="1">
+<li>Let filo dough come to room temperature</li>
+<li>Blend together in short bursts all of the nuts and 1/2 cup sugar until finely chopped, transfer to bowl</li>
+<li>Mix in 4 Tbsp rose water, gently folding rose water into nut and sugar mixture</li>
+</ol>
+<h3 id="assembly-instructions"><strong>Assembly Instructions:</strong></h3>
+<ol type="1">
+<li>Pre-heat oven to 350<span class="math inline">\(^\circ\)</span></li>
+<li>Melt 1 1/3 cups butter, transfer to small bowl</li>
+<li>If necessary, cut filo dough in half to create sheets roughly the same size as your baking dish</li>
+<li>Brush bottom and sides of pan with melted butter</li>
+<li>Layer in 2 sheets of filo dough and brush with melted butter, repeating until roughly 1/3 of the dough has been used</li>
+<li>Spread half of the nut and sugar mixture into baking dish</li>
+<li>Repeat steps 8 and 9, using 1/3 of the remaining dough and all of the remaining nut and sugar mixture</li>
+<li>Repeat set 8, using all of the remaining dough (NOTE: you may need to re-melt your butter or melt additional butter throughout this process)</li>
+<li>Brush the top layer of the baklava with extra butter</li>
+<li>Cut 1-inch wide strips along the diagonals to create diamond shaped pieces, ensuring knife cuts through bottom layer of dough</li>
+<li>Bake for 30 minutes at 350<span class="math inline">\(^\circ\)</span></li>
+<li>Reduce hear to 300<span class="math inline">\(^\circ\)</span> and bake for 10 minutes or until top is golden brown</li>
+<li>Remove from oven and immediately re-cut along both diagonals (ensure cut goes all the way through the bottom layers)</li>
+<li>Pour all of syrup evenly over the whole dish (it will look syrupy)</li>
+<li>Let cool at room temperature for 3 hours to allow syrup to completely absorb</li>
+<li>ENJOY!</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
@@ -2442,6 +2473,15 @@ d-appendix d-footnote-list a.footnote-backlink {
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

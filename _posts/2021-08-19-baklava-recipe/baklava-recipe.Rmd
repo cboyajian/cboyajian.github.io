@@ -15,7 +15,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-This recipe is a compilation of online recipes that was created by my mom, Laurel Boyajian, in an attempt to recreate the baklava from her childhood baked by her Armenian aunts. 
+This recipe is a compilation of online recipes created by my mom, Laurel Boyajian, in an attempt to recreate the baklava baked by her Armenian aunts from her childhood. 
 
 **Recipe modifications:** <br>
 Vegan: you can easily make this recipe vegan by using a vegan butter - no other changes needed. <br>
@@ -29,14 +29,41 @@ Sugar: you can cut down the total amount of sugar used to make a less sweet vers
 - Pastry brush
 
 ### **Ingredients** (filling, syrup, and dough): 
-- Filo dough (usually found in the frozen section of the grocery store by the pie crusts)
+- Filo dough (usually found in the frozen section of the grocery store near the pie crusts)
 - 6 Tbs rose water
-- () cups sugar
-- () cups water
-- () lbs raw nuts (I use a combination of 50% walnut, 25% hazelnut, and 25% pistachio)
-- () butter (melted)
+- 2 cups sugar
+- 3/4 cup water
+- 1 lb raw nuts (I use a combination of 50% walnut, 25% hazelnut, and 25% pistachio)
+- 1 1/3 - 2 cups butter (melted)
 
-### **Instructions:**
-1. Blend all of the nuts and () cups of the sugar until (), transfer to 
-2. Mix in () Tbsp of rose water
+### **Syrup Instructions:**
+1. Boil together for 2 minutes 3/4 cup water and 1 1/2 cups sugar
+2. Let cool slightly (5-10 minutes)
+3. Stir in 2 Tbsp rose water
+4. Refrigerate (NOTE: store in liquid measuring cup, if available, for later pouring ease)
+
+### **Filling Instructions:**
+1. Let filo dough come to room temperature
+2. Blend together in short bursts all of the nuts and 1/2 cup sugar until finely chopped, transfer to bowl
+3. Mix in 4 Tbsp rose water, gently folding rose water into nut and sugar mixture
+
+### **Assembly Instructions:**
+1. Pre-heat oven to 350$^\circ$ 
+2. Melt 1 1/3 cups butter, transfer to small bowl
+3. If necessary, cut filo dough in half to create sheets roughly the same size as your baking dish
+4. Brush bottom and sides of pan with melted butter
+5. Layer in 2 sheets of filo dough and brush with melted butter, repeating until roughly 1/3 of the dough has been used
+6. Spread half of the nut and sugar mixture into baking dish
+7. Repeat steps 8 and 9, using 1/3 of the remaining dough and all of the remaining nut and sugar mixture
+8. Repeat set 8, using all of the remaining dough (NOTE: you may need to re-melt your butter or melt additional butter throughout this process)
+9. Brush the top layer of the baklava with extra butter
+10. Cut 1-inch wide strips along the diagonals to create diamond shaped pieces, ensuring knife cuts through bottom layer of dough
+11. Bake for 30 minutes at 350$^\circ$
+12. Reduce hear to 300$^\circ$ and bake for 10 minutes or until top is golden brown
+13. Remove from oven and immediately re-cut along both diagonals (ensure cut goes all the way through the bottom layers)
+14. Pour all of syrup evenly over the whole dish (it will look syrupy)
+15. Let cool at room temperature for 3 hours to allow syrup to completely absorb
+16. ENJOY!
+
+
 
