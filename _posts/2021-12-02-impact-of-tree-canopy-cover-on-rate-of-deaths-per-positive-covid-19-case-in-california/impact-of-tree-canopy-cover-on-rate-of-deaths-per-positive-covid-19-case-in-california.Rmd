@@ -1,7 +1,7 @@
 ---
 title: "Impact of tree canopy cover on rate of deaths per positive COVID-19 case in California"
 description: |
-  A short description of the post.
+  This blog post will conduct analysis at a county level within California to look at the impact of tree canopy cover percentages on the likelihood of dying after COVID-19 is contracted.
 author:
   - name: Clarissa Boyajian
     url: {}
@@ -10,6 +10,7 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
+    code_folding: true
 ---
 
 ```{r setup, include=FALSE}
@@ -29,8 +30,7 @@ library(kableExtra)
 
 
 # Research Question
-**What impact does the percentage of tree canopy cover have on the rate of COVID deaths per confirmed positive case in California?**\
-This blog post will conduct analysis at a county level within California to look at the impact of tree canopy cover percentages on the likelihood of dying after COVID-19 is contracted. 
+**What impact does the percentage of tree canopy cover have on the rate of COVID deaths per confirmed positive case in California?**
 
 
 ## Importance
