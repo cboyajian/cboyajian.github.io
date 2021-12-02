@@ -1,0 +1,370 @@
+---
+title: "Impact of tree canopy cover on rate of deaths per positive COVID-19 case in California"
+description: |
+  A short description of the post.
+author:
+  - name: Clarissa Boyajian
+    url: {}
+date: 2021-12-02
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+options(scipen = 999)
+
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(sf)
+library(tmap)
+library(patchwork)
+library(broom)
+library(kableExtra)
+```
+
+
+# Research Question
+**What impact does the percentage of tree canopy cover have on the rate of COVID deaths per confirmed positive case in California?**\
+This blog post will conduct analysis at a county level within California to look at the impact of tree canopy cover percentages on the likelihood of dying after COVID-19 is contracted. 
+
+
+## Importance
+This is an important and interesting environmental justice question to consider because tree canopy cover percentages and COVID-19 disproportionately impacted historically marginalized populations throughout the United States. Additionally, both are linked to respiratory and cardiovascular diseases. There is proven evidence that areas with more urban tree canopy have increased public health indicators (6). This includes lower rates of disease such as asthma, strokes, and cardiac disease. There is also evidence that individuals with existing respiratory and/or cardiovascular disease are not only more likely to contract COVID-19, but also more likely to be sicker or even die (8). 
+
+
+## Data
+
+#### Tree Canopy Data
+
+The tree canopy data used for this analysis is publicly available from the Public Health Alliance of Southern California (2), which reports California Healthy Places Indexes. The data is available in CSV format, with a canopy cover percentage for each census tract within California. The website was last updated in April of 2021, but the tree canopy data is from 2011. 
+
+#### COVID-19 Data
+
+The COVID-19 data used in this analysis was publicly available on the LA Times DataDesk GitHub repository (1). This data was collected using scrapers written in Python and Jupyter notebooks, scheduled and run via GitHub Actions, and archived using git. The scrapers collection data from the California Department of Public Health and other government agencies. This data is at a county-level spatial resolution and includes a daily number for both confirmed cases and deaths from February 1st, 2020 to today. The data used in this analysis included daily numbers from February 1st, 2020 through November 22, 2021. Potential bias in this data, is that confirmed cases are calculated based on positive test results. This means that any individuals who contracted COVID-19, but did not get tested, are not included in this data. Due to the high rate of asymptomatic cases (9), there is likely a large quantity of missing data. 
+
+#### Geographic Data
+
+The geographic data used in this analysis includes California county borders and U.S. Census regions, which subsets the state into 10 different regions. The county geographies were downloaded as a ShapeFile from the LA Times DataDesk GitHub repository (3). The U.S. Census regions were manually entered into R based on a map publicly available on the U.S. Census website (5). 
+
+```{r Read in data, message=FALSE, warning=FALSE}
+county_geom_raw <- st_read("../../../fall_quarter/EDS222/eds222-final-project/map_data/counties.shp", quiet = TRUE)
+
+income_raw <- read.csv("../../../fall_quarter/EDS222/eds222-final-project/income_data/UnemploymentReport.csv")
+
+tree_canopy_raw <- read_csv("../../../fall_quarter/EDS222/eds222-final-project/tree_data/HPI-Individual-Indicators/HPI2_treecanopy.csv")
+
+covid_raw_latimes <- read.csv("../../../fall_quarter/EDS222/eds222-final-project/covid_data/cdph-county-cases-deaths.csv") # 2020-02-01 to 2021-11-22
+```
+
+```{r Wrangle county geom data, warning=FALSE}
+county_region1 <- c("Butte", "Colusa", "El Dorado", "Glenn", "Lassen", "Modoc", 
+                    "Nevada", "Placer", "Plumas", "Sacramento", "Shasta", 
+                    "Sierra", "Siskiyou", "Sutter", "Tehama", "Yolo", "Yuba")
+county_region2 <- c("Del Norte", "Humboldt", "Lake", "Mendocino", "Napa", 
+                    "Sonoma", "Trinity")
+county_region3 <- c("Alameda", "Contra Costa", "Marin", "San Francisco", 
+                    "San Mateo", "Santa Clara", "Solano") 
+county_region4 <- c("Amador", "Calaveras", "Madera", "Mariposa", "Merced", 
+                     "Mono", "San Joaquin", "Stanislaus", "Tuolumne")
+county_region5 <- c("Monterey", "San Benito", "San Luis Obispo", 
+                    "Santa Barbara", "Santa Cruz", "Ventura")
+county_region6 <- c("Fresno", "Inyo", "Kern", "Kings", "Tulare")
+county_region7 <- c("Riverside", "San Bernardino")
+county_region8 <- c("Los Angeles")
+county_region9 <- c("Orange")
+county_region10 <- c("Imperial", "San Diego")
+
+county_geom <- 
+  county_geom_raw %>% 
+  clean_names() %>% 
+  rename(county_name = name) %>% 
+  mutate(county_region_name = case_when(county_name %in% county_region1 ~ "Superior California",
+                                        county_name %in% county_region2 ~ "North Coast",
+                                        county_name %in% county_region3 ~ "San Francisco Bay Area",
+                                        county_name %in% county_region4 ~ "Northern San Joaquin Valley",
+                                        county_name %in% county_region5 ~ "Central Coast",
+                                        county_name %in% county_region6 ~ "Southern San Joaquin Valley",
+                                        county_name %in% county_region7 ~ "Inland Empire",
+                                        county_name %in% county_region8 ~ "Los Angeles County",
+                                        county_name %in% county_region9 ~ "Orange County",
+                                        county_name %in% county_region10 ~ "San Diego - Imperial")) %>% 
+  mutate(county_region_name = fct_relevel(county_region_name, 
+                                          levels = c("Superior California", "North Coast", 
+                                                     "San Francisco Bay Area", "Northern San Joaquin Valley", 
+                                                     "Central Coast", "Southern San Joaquin Valley", "Inland Empire", 
+                                                     "Los Angeles County", "Orange County", "San Diego - Imperial")),
+         county_fips = paste0("06", county_fips)) %>% 
+  select(county_fips, county_name, geometry, county_region_name)
+```
+
+```{r Wrangle income data}
+income_data <- 
+  income_raw %>% 
+  clean_names() %>% 
+  rename(county_fips = fips) %>% 
+  filter(!grepl(c("06000"), county_fips), # remove CA
+         !grepl(c("06003"), county_fips), # remove county not in tree data
+         grepl(c(" "), name) # remove empty lines at end of csv
+         ) %>% 
+  select(county_fips, median_household_income_2019)
+```
+
+```{r Wrangling tree data}
+tree_data <- 
+  tree_canopy_raw %>% 
+  clean_names() %>% 
+  select(-c(indicator, treecanopy_n, treecanopy_d, notes) # remove empty columns
+         ) %>% 
+  mutate(county_fips = paste0("0", county_fips))
+```
+
+```{r Wrangling covid data}
+covid_data <- 
+  covid_raw_latimes %>% 
+  clean_names() %>% 
+  filter(!grepl(c("Alpine"), county)) %>% # remove county not in tree data
+  mutate(fips = case_when(fips < 10 ~ paste0("0600", fips),
+                          fips < 100 & fips > 10 ~ paste0("060", fips),
+                          fips > 100 ~ paste0("06", fips))) %>%
+  rename(county_name = county,
+         county_fips = fips) %>% 
+  mutate(date = as.Date(ymd(date)))
+```
+
+
+## Basic Data Analysis
+
+For my analysis I planned to conduct a simple OLS linear regression, but first conducted some basic analysis to explore the data. To begin, I needed to transform the tree canopy and COVID-19 data to be at the same spatial and temporal resolution. First, I calculated the tree canopy cover percentage for each county using the `group_by()` and `summarize()` functions to create an average from the census tract data. Next, I calculated each county's average population, average daily number of confirmed positive cases, and average daily reported deaths also using `group_by()` and `summarize()` functions. Finally, I calculated a rate of deaths per confirmed case and per capita for each county. Once this was completed, I combined all datasets based on the county Federal Information Processing System (FIPS) codes to create a dataframe including tree canopy, COVID-19, and income data as well as geometries for each county.
+
+```{r County average covid data}
+covid_county_average <- 
+  covid_data %>% 
+  group_by(county_fips) %>% 
+  summarise(population_county_av = mean(population),
+            confirmed_cases_county_av = mean(confirmed_cases),
+            reported_deaths_county_av = mean(reported_deaths)) %>% 
+  mutate(deaths_per_case_pct = reported_deaths_county_av / confirmed_cases_county_av,
+         deaths_per_pop_pct = reported_deaths_county_av / population_county_av)
+```
+
+```{r County average tree data}
+tree_county_average <- 
+  tree_data %>% 
+  group_by(county_fips) %>% 
+  summarise(county_treecanopy_pct = mean(treecanopy_pct))
+```
+
+```{r Combining data}
+full_data_county_average <- 
+  left_join(x = covid_county_average, y = tree_county_average, by = "county_fips") %>% 
+  left_join(y = county_geom, by = "county_fips") %>% 
+  left_join(y = income_data, by = "county_fips")
+
+tree_county_average_sf <- 
+  left_join(x = tree_county_average, y = county_geom, by = "county_fips") %>% 
+  st_as_sf()
+
+covid_county_average_sf <- 
+  left_join(x = covid_county_average, y = county_geom, by = "county_fips") %>% 
+  st_as_sf()
+```
+
+
+
+## Basic Data Visualization
+
+Before deciding to use a simple OLS linear regression, I wanted to conduct some basic data visualization to explore the correlation between tree canopy and the rate of COVID-19 deaths per positive case. 
+
+First, I aggregated the county data further into the 10 county regions as defined by the U.S. Census and plotted the canopy cover percentages and COVID-19 deaths per capita for each region (Fig 1). This exploration showed a potential relationship between lower canopied regions within California and COVID-19 deaths per capita. 
+
+```{r Covid county region}
+covid_county_region_average <- 
+  covid_county_average_sf %>% 
+  group_by(county_region_name) %>% 
+  summarise(county_region_death_daily_av = mean(reported_deaths_county_av),
+            county_region_death_per_case = mean(deaths_per_case_pct),
+            county_region_death_daily_av_per_pop = mean(deaths_per_pop_pct))
+```
+
+```{r Tree county region}
+tree_county_region <- 
+  tree_county_average_sf %>% 
+  group_by(county_region_name) %>% 
+  summarise(county_region_tree_pct = mean(county_treecanopy_pct))
+```
+
+```{r Plot county region exploration}
+covid_county_region_av_plot <- 
+  ggplot(data = covid_county_region_average, 
+         aes(x = county_region_death_daily_av, 
+             y = county_region_name, 
+             fill = county_region_name)) +
+  geom_col(show.legend = FALSE)+
+  scale_fill_viridis_d() +
+  labs(x = "Average Daily COVID Deaths\n(from 2020-02-01 to 2021-11-22)",
+       y = "") +
+  theme_classic()
+
+covid_county_region_pct_av_plot <- 
+  ggplot(data = covid_county_region_average, 
+         aes(x = county_region_death_daily_av_per_pop, 
+             y = county_region_name, 
+             fill = county_region_name)) +
+  geom_col(show.legend = FALSE)+
+  scale_fill_viridis_d() +
+  labs(x = "Average daily COVID deaths per capita \n(from 2020-02-01 to 2021-11-22)",
+       y = "") +
+  theme_classic()
+
+tree_county_region_plot <- 
+  ggplot(data = tree_county_region,
+         aes(x = county_region_tree_pct,
+             y = county_region_name,
+             fill = county_region_name)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_viridis_d() +
+  labs(x = "Average tree canopy cover percentage\n(from 2011)",
+       y = "") +
+  theme_classic()
+```
+
+```{r fig.align='left', out.width="75%", fig.cap="Plot showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of California's 10 Census Regions."}
+(tree_county_region_plot / covid_county_region_pct_av_plot) + 
+  plot_annotation(title = "California County Region Analysis")
+```
+
+Next, I honed my exploration more closely in on my research questions: what impact does tree canopy coverage have on the likelihood that someone who contracts COVID-19 will die? To do this I created two maps. One map shows the average tree canopy cover percentage for each county within California (Fig 2). The other map displays the rate of average daily COVID-19 deaths per average daily confirmed positive cases for each county within California (Fig 2). As with my previous exploration this visualization does not show anything conclusively, but does indicate that there is a relationship between California counties with lower tree canopy cover and higher likelihood of death for individuals who contract COVID-19.
+
+```{r tree map viz}
+tree_map <- 
+  tm_shape(tree_county_average_sf) +
+  tm_borders(col = "black", alpha = .65) +
+  tm_fill(col = "county_treecanopy_pct",
+          style = "cont", 
+          n = 5,
+          palette ="viridis",
+          title = "Tree Canopy Cover\nPercentage") +
+  tm_layout(main.title = "Average Tree Canopy Cover\nin CA Counties",
+            main.title.size = 1,
+            legend.text.size = 0.75, 
+            legend.title.size = 0.9)
+```
+
+```{r covid map viz}
+covid_map <- 
+  tm_shape(covid_county_average_sf) +
+  tm_borders(col = "black", alpha = .65) +
+  tm_fill(col = "deaths_per_case_pct",
+          style = "cont", 
+          n = 5,
+          palette ="viridis",
+          title = "Percent of Deaths\nper Positive Case") +
+  tm_layout(main.title = "Average COVID Death per Positive Case\nin CA Counties",
+            main.title.size = 1,
+            legend.text.size = 0.75, 
+            legend.title.size = 0.9)
+```
+
+```{r fig.align='left', out.width="75%", fig.cap="Maps showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of the 57 California Counties. (Note: the tree canopy cover data used did not include Alpine County, so it was excluded from all analysis.)", warning=FALSE}
+tmap_arrange(tree_map, covid_map)
+```
+
+
+## Simple Linear Regression
+
+I conducted a simple OLS linear regression to look at the impacts of tree canopy cover percentages on the rate of COVID-19 deaths per positive case. First, I used `ggplot` to create a scatter plot comparing the tree canopy cover percentage to the rate of COVID-19 deaths per positive case for each of the 57 California counties. Then I used `geom_smooth()` to plot a simple OLS linear regression of the data. Visually, it appears there is a negative correlation between the two rates (Fig 3).
+
+```{r fig.align='left', out.width="60%", fig.cap="Correlation plot of tree canopy percentage compared vs. rate of COVID-19 death per positive case for 57 California Counties, including simple linear regression line."}
+ggplot(data = full_data_county_average, 
+         aes(x = county_treecanopy_pct, 
+             y = deaths_per_case_pct)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  theme_classic() +
+  labs(x = "Tree Canopy Cover (%)",
+       y = "COVID Deaths per Positive Case (%)",
+       title = "Impacts of Tree Canopy Cover on COVID Deaths per Postive Case \nin California Counties")
+```
+
+```{r Calculate regression model}
+mod <- lm(deaths_per_case_pct ~ county_treecanopy_pct, data = full_data_county_average)
+
+mod_summary <- summary(mod)
+```
+
+The results of the OLS regression are shown in figure 4. The results show that there is in fact a negative correlation between tree canopy cover percentage and the rate of COVID-19 deaths per positive cases within California counties. The slope results indicates that for each 1% increase in tree canopy there is a `r abs(round(mod_summary$coefficients[2,"Estimate"], 5)) * 100`% decrease in the COVID-19 death rate per positive case. However, the p-value is `r round(mod_summary$coefficients[2,"Pr(>|t|)"], 2)` meaning that there is no statistical significance that can be taken from this analysis. Additionally, the R-squared value is `r round(mod_summary$r.squared, 2)`, meaning that only `r round(mod_summary$r.squared, 2) * 100`% of the variation in the rate of COVID-19 deaths per positive case are explained by average tree canopy cover percentages. 
+
+```{r fig.align='left', fig.cap="OLS Results showing intercept, slope, and p-value."}
+data.frame(
+    beta_knot = mod_summary$coefficients[1,"Estimate"],
+    beta_one = mod_summary$coefficients[2,"Estimate"],
+    p_val = mod_summary$coefficients[2,"Pr(>|t|)"],
+    r_squared = mod_summary$r.squared
+  ) %>% 
+  kable(col.names = c("Intercept", "Slope", "P-value", "R-Squared"),
+        caption = "Simple Linear Regression Results: Impact of tree canopy cover on rate of COVID-19 deaths per positive case in California"
+      ) %>% 
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE)
+```
+
+#### Hypothesis test
+Because of the lack of statistical significance discussed above, we are unable to reject the null hypothesis with the current analysis.\
+
+*Null hypothesis:* In California counties, the tree canopy cover percentage has no impact on the rate of COVID-19 deaths per positive reported case.\
+*Alternative hypothesis:* In California counties, the tree canopy cover percentage has an impact on the rate of COVID-19 deaths per positive reported case.\
+
+
+#### Confidence Interval
+
+```{r 95% Confidence interval}
+crit_val <- qt(0.025, df = 55, lower.tail = FALSE)
+
+point_est <- mod_summary$coefficients[2, "Estimate"]
+
+SE <- mod_summary$coefficients[2, "Std. Error"]
+
+ci_lower <- round(point_est - (crit_val * SE), 6)
+ci_upper <- round(point_est + (crit_val * SE), 6)
+```
+
+I calculated a confidence interval and found that I was 95% confident that the true change in COVID-19 deaths per positive case for each 1% increase in tree canopy cover percentages was withing the range of (`r ci_lower`, `r ci_upper`).
+
+
+## Conclusions and Future Analysis
+
+As discussed above, there is no statistically significant conclusion to be taken from this analysis. However, I believe that future analysis is warranted. 
+
+#### Full United States
+The analysis that I conducted only included 57 observations, one for each California county included in the original tree data. This is a low number of observations, so there may be a different result if analysis were conducted looking at all 3,006 counties within the United States. 
+
+#### Median Income
+Other future analysis would be to include median income in the regression model. Because those with higher median incomes generally live in communities with higher tree canopy cover percentages (7), it is possible that the negative correlation we saw was more not due to tree canopy. For future analysis I would use median income data from the United States Department of Agriculture (USDA) Economic Research Service website (4), which has 2019 median income data is aggregated to a county level. 
+
+#### More Recent Tree Data
+Lastly, the data used in this analysis was from 2011. While tree canopy cover tends to change slowly, there have been technological advances in the last decade (such as LiDAR) that allow for more accurate tree canopy cover percentage estimates. 
+
+
+## References
+#### Data
+1. LA Times DataDesk, California Coronavirus Scrapers GitHub repository: https://github.com/datadesk/california-coronavirus-scrapers
+2. Public Health Alliance of Southern California's California Healthy Places Index Report: https://healthyplacesindex.org/data-reports/
+3. LA Times DataDesk, Geographic Boundaries GitHub repository: https://github.com/datadesk/boundaries.latimes.com/blob/master/shapefiles/counties/2012/counties.prj
+4. United States Department of Agriculture Economic Research Service County-level Data Sets: https://www.ers.usda.gov/data-products/county-level-data-sets/
+5. United States Census, California Complete Count Office: https://census.ca.gov/regions/
+
+#### Literature
+6. Astell-Burt, Thomas, and Xiaoqi Feng. “Urban Green Space, Tree Canopy, and Prevention of Heart Disease, Hypertension, and Diabetes: A Longitudinal Study.” The Lancet Planetary Health 3 (September 1, 2019): S16. https://doi.org/10.1016/S2542-5196(19)30159-7.
+7. Schwarz, Kirsten, Michail Fragkias, Christopher G. Boone, Weiqi Zhou, Melissa McHale, J. Morgan Grove, Jarlath O’Neil-Dunne, et al. “Trees Grow on Money: Urban Tree Canopy Cover and Environmental Justice.” PLOS ONE 10, no. 4 (April 1, 2015): e0122051. https://doi.org/10.1371/journal.pone.0122051.
+8. Yang, Jing, Ya Zheng, Xi Gou, Ke Pu, Zhaofeng Chen, Qinghong Guo, Rui Ji, Haojia Wang, Yuping Wang, and Yongning Zhou. “Prevalence of Comorbidities and Its Effects in Patients Infected with SARS-CoV-2: A Systematic Review and Meta-Analysis.” International Journal of Infectious Diseases 94 (May 1, 2020): 91–95. https://doi.org/10.1016/j.ijid.2020.03.017.
+9. Zhao, Hongjun, Xiaoxiao Lu, Yibin Deng, Yujin Tang, and Jiachun Lu. “COVID-19: Asymptomatic Carrier Transmission Is an Underestimated Problem.” Epidemiology & Infection 148 (ed 2020). https://doi.org/10.1017/S0950268820001235.
+
+
+
+
+
