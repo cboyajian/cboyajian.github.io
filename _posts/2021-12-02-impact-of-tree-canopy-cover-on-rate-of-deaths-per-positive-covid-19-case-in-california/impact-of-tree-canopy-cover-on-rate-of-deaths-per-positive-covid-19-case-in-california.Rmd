@@ -10,7 +10,6 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
-    code_folding: true
 ---
 
 ```{r setup, include=FALSE}
@@ -270,7 +269,7 @@ covid_map <-
             legend.title.size = 0.9)
 ```
 
-```{r fig.align='left', out.width="75%", fig.cap="Maps showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of the 57 California Counties. (Note: the tree canopy cover data used did not include Alpine County, so it was excluded from all analysis.)", warning=FALSE}
+```{r fig.align='left', out.width="75%", fig.cap="Maps showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of the 57 California Counties. (Note: the tree canopy cover data used did not include Alpine County, so it was excluded from all analysis.)", warning=FALSE, preview=TRUE}
 tmap_arrange(tree_map, covid_map)
 ```
 

@@ -112,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Impact of tree canopy cover on rate of deaths per positive COVID-19 case in California"]},{"type":"character","attributes":{},"value":["This blog post will conduct analysis at a county level within California to look at the impact of tree canopy cover percentages on the likelihood of dying after COVID-19 is contracted.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Clarissa Boyajian"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2021-12-02"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Impact of tree canopy cover on rate of deaths per positive COVID-19 case in California"]},{"type":"character","attributes":{},"value":["This blog post will conduct analysis at a county level within California to look at the impact of tree canopy cover percentages on the likelihood of dying after COVID-19 is contracted.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Clarissa Boyajian"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2021-12-02"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1513,267 +1513,44 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h4 id="geographic-data">Geographic Data</h4>
 <p>The geographic data used in this analysis includes California county borders and U.S. Census regions, which subsets the state into 10 different regions. The county geographies were downloaded as a ShapeFile from the LA Times DataDesk GitHub repository (3). The U.S. Census regions were manually entered into R based on a map publicly available on the U.S. Census website (5).</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>county_geom_raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='st'>"../../../fall_quarter/EDS222/eds222-final-project/map_data/counties.shp"</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='va'>income_raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"../../../fall_quarter/EDS222/eds222-final-project/income_data/UnemploymentReport.csv"</span><span class='op'>)</span>
-
-<span class='va'>tree_canopy_raw</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"../../../fall_quarter/EDS222/eds222-final-project/tree_data/HPI-Individual-Indicators/HPI2_treecanopy.csv"</span><span class='op'>)</span>
-
-<span class='va'>covid_raw_latimes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"../../../fall_quarter/EDS222/eds222-final-project/covid_data/cdph-county-cases-deaths.csv"</span><span class='op'>)</span> <span class='co'># 2020-02-01 to 2021-11-22</span>
-</code></pre>
-</div>
-</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>county_region1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Butte"</span>, <span class='st'>"Colusa"</span>, <span class='st'>"El Dorado"</span>, <span class='st'>"Glenn"</span>, <span class='st'>"Lassen"</span>, <span class='st'>"Modoc"</span>, 
-                    <span class='st'>"Nevada"</span>, <span class='st'>"Placer"</span>, <span class='st'>"Plumas"</span>, <span class='st'>"Sacramento"</span>, <span class='st'>"Shasta"</span>, 
-                    <span class='st'>"Sierra"</span>, <span class='st'>"Siskiyou"</span>, <span class='st'>"Sutter"</span>, <span class='st'>"Tehama"</span>, <span class='st'>"Yolo"</span>, <span class='st'>"Yuba"</span><span class='op'>)</span>
-<span class='va'>county_region2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Del Norte"</span>, <span class='st'>"Humboldt"</span>, <span class='st'>"Lake"</span>, <span class='st'>"Mendocino"</span>, <span class='st'>"Napa"</span>, 
-                    <span class='st'>"Sonoma"</span>, <span class='st'>"Trinity"</span><span class='op'>)</span>
-<span class='va'>county_region3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Alameda"</span>, <span class='st'>"Contra Costa"</span>, <span class='st'>"Marin"</span>, <span class='st'>"San Francisco"</span>, 
-                    <span class='st'>"San Mateo"</span>, <span class='st'>"Santa Clara"</span>, <span class='st'>"Solano"</span><span class='op'>)</span> 
-<span class='va'>county_region4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Amador"</span>, <span class='st'>"Calaveras"</span>, <span class='st'>"Madera"</span>, <span class='st'>"Mariposa"</span>, <span class='st'>"Merced"</span>, 
-                     <span class='st'>"Mono"</span>, <span class='st'>"San Joaquin"</span>, <span class='st'>"Stanislaus"</span>, <span class='st'>"Tuolumne"</span><span class='op'>)</span>
-<span class='va'>county_region5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Monterey"</span>, <span class='st'>"San Benito"</span>, <span class='st'>"San Luis Obispo"</span>, 
-                    <span class='st'>"Santa Barbara"</span>, <span class='st'>"Santa Cruz"</span>, <span class='st'>"Ventura"</span><span class='op'>)</span>
-<span class='va'>county_region6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Fresno"</span>, <span class='st'>"Inyo"</span>, <span class='st'>"Kern"</span>, <span class='st'>"Kings"</span>, <span class='st'>"Tulare"</span><span class='op'>)</span>
-<span class='va'>county_region7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Riverside"</span>, <span class='st'>"San Bernardino"</span><span class='op'>)</span>
-<span class='va'>county_region8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Los Angeles"</span><span class='op'>)</span>
-<span class='va'>county_region9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Orange"</span><span class='op'>)</span>
-<span class='va'>county_region10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Imperial"</span>, <span class='st'>"San Diego"</span><span class='op'>)</span>
 
-<span class='va'>county_geom</span> <span class='op'>&lt;-</span> 
-  <span class='va'>county_geom_raw</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>rename</span><span class='op'>(</span>county_name <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>county_region_name <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span><span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region1</span> <span class='op'>~</span> <span class='st'>"Superior California"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region2</span> <span class='op'>~</span> <span class='st'>"North Coast"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region3</span> <span class='op'>~</span> <span class='st'>"San Francisco Bay Area"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region4</span> <span class='op'>~</span> <span class='st'>"Northern San Joaquin Valley"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region5</span> <span class='op'>~</span> <span class='st'>"Central Coast"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region6</span> <span class='op'>~</span> <span class='st'>"Southern San Joaquin Valley"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region7</span> <span class='op'>~</span> <span class='st'>"Inland Empire"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region8</span> <span class='op'>~</span> <span class='st'>"Los Angeles County"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region9</span> <span class='op'>~</span> <span class='st'>"Orange County"</span>,
-                                        <span class='va'>county_name</span> <span class='op'>%in%</span> <span class='va'>county_region10</span> <span class='op'>~</span> <span class='st'>"San Diego - Imperial"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>county_region_name <span class='op'>=</span> <span class='fu'>fct_relevel</span><span class='op'>(</span><span class='va'>county_region_name</span>, 
-                                          levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Superior California"</span>, <span class='st'>"North Coast"</span>, 
-                                                     <span class='st'>"San Francisco Bay Area"</span>, <span class='st'>"Northern San Joaquin Valley"</span>, 
-                                                     <span class='st'>"Central Coast"</span>, <span class='st'>"Southern San Joaquin Valley"</span>, <span class='st'>"Inland Empire"</span>, 
-                                                     <span class='st'>"Los Angeles County"</span>, <span class='st'>"Orange County"</span>, <span class='st'>"San Diego - Imperial"</span><span class='op'>)</span><span class='op'>)</span>,
-         county_fips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"06"</span>, <span class='va'>county_fips</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>county_fips</span>, <span class='va'>county_name</span>, <span class='va'>geometry</span>, <span class='va'>county_region_name</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_data</span> <span class='op'>&lt;-</span> 
-  <span class='va'>income_raw</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>rename</span><span class='op'>(</span>county_fips <span class='op'>=</span> <span class='va'>fips</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"06000"</span><span class='op'>)</span>, <span class='va'>county_fips</span><span class='op'>)</span>, <span class='co'># remove CA</span>
-         <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"06003"</span><span class='op'>)</span>, <span class='va'>county_fips</span><span class='op'>)</span>, <span class='co'># remove county not in tree data</span>
-         <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>" "</span><span class='op'>)</span>, <span class='va'>name</span><span class='op'>)</span> <span class='co'># remove empty lines at end of csv</span>
-         <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>county_fips</span>, <span class='va'>median_household_income_2019</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tree_data</span> <span class='op'>&lt;-</span> 
-  <span class='va'>tree_canopy_raw</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>indicator</span>, <span class='va'>treecanopy_n</span>, <span class='va'>treecanopy_d</span>, <span class='va'>notes</span><span class='op'>)</span> <span class='co'># remove empty columns</span>
-         <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>county_fips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"0"</span>, <span class='va'>county_fips</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid_data</span> <span class='op'>&lt;-</span> 
-  <span class='va'>covid_raw_latimes</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Alpine"</span><span class='op'>)</span>, <span class='va'>county</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># remove county not in tree data</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>fips <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span><span class='va'>fips</span> <span class='op'>&lt;</span> <span class='fl'>10</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"0600"</span>, <span class='va'>fips</span><span class='op'>)</span>,
-                          <span class='va'>fips</span> <span class='op'>&lt;</span> <span class='fl'>100</span> <span class='op'>&amp;</span> <span class='va'>fips</span> <span class='op'>&gt;</span> <span class='fl'>10</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"060"</span>, <span class='va'>fips</span><span class='op'>)</span>,
-                          <span class='va'>fips</span> <span class='op'>&gt;</span> <span class='fl'>100</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"06"</span>, <span class='va'>fips</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>rename</span><span class='op'>(</span>county_name <span class='op'>=</span> <span class='va'>county</span>,
-         county_fips <span class='op'>=</span> <span class='va'>fips</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <h2 id="basic-data-analysis">Basic Data Analysis</h2>
 <p>For my analysis I planned to conduct a simple OLS linear regression, but first conducted some basic analysis to explore the data. To begin, I needed to transform the tree canopy and COVID-19 data to be at the same spatial and temporal resolution. First, I calculated the tree canopy cover percentage for each county using the <code>group_by()</code> and <code>summarize()</code> functions to create an average from the census tract data. Next, I calculated each county’s average population, average daily number of confirmed positive cases, and average daily reported deaths also using <code>group_by()</code> and <code>summarize()</code> functions. Finally, I calculated a rate of deaths per confirmed case and per capita for each county. Once this was completed, I combined all datasets based on the county Federal Information Processing System (FIPS) codes to create a dataframe including tree canopy, COVID-19, and income data as well as geometries for each county.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid_county_average</span> <span class='op'>&lt;-</span> 
-  <span class='va'>covid_data</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>county_fips</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/tidyverse.html'>summarise</a></span><span class='op'>(</span>population_county_av <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>population</span><span class='op'>)</span>,
-            confirmed_cases_county_av <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>confirmed_cases</span><span class='op'>)</span>,
-            reported_deaths_county_av <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>reported_deaths</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>deaths_per_case_pct <span class='op'>=</span> <span class='va'>reported_deaths_county_av</span> <span class='op'>/</span> <span class='va'>confirmed_cases_county_av</span>,
-         deaths_per_pop_pct <span class='op'>=</span> <span class='va'>reported_deaths_county_av</span> <span class='op'>/</span> <span class='va'>population_county_av</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tree_county_average</span> <span class='op'>&lt;-</span> 
-  <span class='va'>tree_data</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>county_fips</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/tidyverse.html'>summarise</a></span><span class='op'>(</span>county_treecanopy_pct <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>treecanopy_pct</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>full_data_county_average</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>covid_county_average</span>, y <span class='op'>=</span> <span class='va'>tree_county_average</span>, by <span class='op'>=</span> <span class='st'>"county_fips"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>county_geom</span>, by <span class='op'>=</span> <span class='st'>"county_fips"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>income_data</span>, by <span class='op'>=</span> <span class='st'>"county_fips"</span><span class='op'>)</span>
 
-<span class='va'>tree_county_average_sf</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>tree_county_average</span>, y <span class='op'>=</span> <span class='va'>county_geom</span>, by <span class='op'>=</span> <span class='st'>"county_fips"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>covid_county_average_sf</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>covid_county_average</span>, y <span class='op'>=</span> <span class='va'>county_geom</span>, by <span class='op'>=</span> <span class='st'>"county_fips"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 </div>
 <h2 id="basic-data-visualization">Basic Data Visualization</h2>
 <p>Before deciding to use a simple OLS linear regression, I wanted to conduct some basic data visualization to explore the correlation between tree canopy and the rate of COVID-19 deaths per positive case.</p>
 <p>First, I aggregated the county data further into the 10 county regions as defined by the U.S. Census and plotted the canopy cover percentages and COVID-19 deaths per capita for each region (Fig 1). This exploration showed a potential relationship between lower canopied regions within California and COVID-19 deaths per capita.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid_county_region_average</span> <span class='op'>&lt;-</span> 
-  <span class='va'>covid_county_average_sf</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>county_region_name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/tidyverse.html'>summarise</a></span><span class='op'>(</span>county_region_death_daily_av <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>reported_deaths_county_av</span><span class='op'>)</span>,
-            county_region_death_per_case <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>deaths_per_case_pct</span><span class='op'>)</span>,
-            county_region_death_daily_av_per_pop <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>deaths_per_pop_pct</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tree_county_region</span> <span class='op'>&lt;-</span> 
-  <span class='va'>tree_county_average_sf</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>county_region_name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/tidyverse.html'>summarise</a></span><span class='op'>(</span>county_region_tree_pct <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>county_treecanopy_pct</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid_county_region_av_plot</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>covid_county_region_average</span>, 
-         <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>county_region_death_daily_av</span>, 
-             y <span class='op'>=</span> <span class='va'>county_region_name</span>, 
-             fill <span class='op'>=</span> <span class='va'>county_region_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_col</span><span class='op'>(</span>show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>+</span>
-  <span class='fu'>scale_fill_viridis_d</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Average Daily COVID Deaths\n(from 2020-02-01 to 2021-11-22)"</span>,
-       y <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='va'>covid_county_region_pct_av_plot</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>covid_county_region_average</span>, 
-         <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>county_region_death_daily_av_per_pop</span>, 
-             y <span class='op'>=</span> <span class='va'>county_region_name</span>, 
-             fill <span class='op'>=</span> <span class='va'>county_region_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_col</span><span class='op'>(</span>show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>+</span>
-  <span class='fu'>scale_fill_viridis_d</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Average daily COVID deaths per capita \n(from 2020-02-01 to 2021-11-22)"</span>,
-       y <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>tree_county_region_plot</span> <span class='op'>&lt;-</span> 
-  <span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>tree_county_region</span>,
-         <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>county_region_tree_pct</span>,
-             y <span class='op'>=</span> <span class='va'>county_region_name</span>,
-             fill <span class='op'>=</span> <span class='va'>county_region_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_col</span><span class='op'>(</span>show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_viridis_d</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Average tree canopy cover percentage\n(from 2011)"</span>,
-       y <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>tree_county_region_plot</span> <span class='op'>/</span> <span class='va'>covid_county_region_pct_av_plot</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_annotation.html'>plot_annotation</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"California County Region Analysis"</span><span class='op'>)</span>
-</code></pre>
+
 </div>
-</details>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
 <div class="figure" style="text-align: left"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="impact-of-tree-canopy-cover-on-rate-of-deaths-per-positive-covid-19-case-in-california_files/figure-html5/unnamed-chunk-1-1.png" alt="Plot showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of California's 10 Census Regions." width="75%" />
 <p class="caption">
@@ -1783,61 +1560,14 @@ Figure 1: Plot showing the average tree canopy cover percentage and average dail
 </div>
 <p>Next, I honed my exploration more closely in on my research questions: what impact does tree canopy coverage have on the likelihood that someone who contracts COVID-19 will die? To do this I created two maps. One map shows the average tree canopy cover percentage for each county within California (Fig 2). The other map displays the rate of average daily COVID-19 deaths per average daily confirmed positive cases for each county within California (Fig 2). As with my previous exploration this visualization does not show anything conclusively, but does indicate that there is a relationship between California counties with lower tree canopy cover and higher likelihood of death for individuals who contract COVID-19.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tree_map</span> <span class='op'>&lt;-</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_shape.html'>tm_shape</a></span><span class='op'>(</span><span class='va'>tree_county_average_sf</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_polygons.html'>tm_borders</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='st'>"black"</span>, alpha <span class='op'>=</span> <span class='fl'>.65</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_polygons.html'>tm_fill</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='st'>"county_treecanopy_pct"</span>,
-          style <span class='op'>=</span> <span class='st'>"cont"</span>, 
-          n <span class='op'>=</span> <span class='fl'>5</span>,
-          palette <span class='op'>=</span><span class='st'>"viridis"</span>,
-          title <span class='op'>=</span> <span class='st'>"Tree Canopy Cover\nPercentage"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_layout.html'>tm_layout</a></span><span class='op'>(</span>main.title <span class='op'>=</span> <span class='st'>"Average Tree Canopy Cover\nin CA Counties"</span>,
-            main.title.size <span class='op'>=</span> <span class='fl'>1</span>,
-            legend.text.size <span class='op'>=</span> <span class='fl'>0.75</span>, 
-            legend.title.size <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>covid_map</span> <span class='op'>&lt;-</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_shape.html'>tm_shape</a></span><span class='op'>(</span><span class='va'>covid_county_average_sf</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_polygons.html'>tm_borders</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='st'>"black"</span>, alpha <span class='op'>=</span> <span class='fl'>.65</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_polygons.html'>tm_fill</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='st'>"deaths_per_case_pct"</span>,
-          style <span class='op'>=</span> <span class='st'>"cont"</span>, 
-          n <span class='op'>=</span> <span class='fl'>5</span>,
-          palette <span class='op'>=</span><span class='st'>"viridis"</span>,
-          title <span class='op'>=</span> <span class='st'>"Percent of Deaths\nper Positive Case"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tm_layout.html'>tm_layout</a></span><span class='op'>(</span>main.title <span class='op'>=</span> <span class='st'>"Average COVID Death per Positive Case\nin CA Counties"</span>,
-            main.title.size <span class='op'>=</span> <span class='fl'>1</span>,
-            legend.text.size <span class='op'>=</span> <span class='fl'>0.75</span>, 
-            legend.title.size <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tmap/man/tmap_arrange.html'>tmap_arrange</a></span><span class='op'>(</span><span class='va'>tree_map</span>, <span class='va'>covid_map</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 <div class="figure" style="text-align: left"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
-<img src="impact-of-tree-canopy-cover-on-rate-of-deaths-per-positive-covid-19-case-in-california_files/figure-html5/unnamed-chunk-2-1.png" alt="Maps showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of the 57 California Counties. (Note: the tree canopy cover data used did not include Alpine County, so it was excluded from all analysis.)" width="75%" />
+<img src="impact-of-tree-canopy-cover-on-rate-of-deaths-per-positive-covid-19-case-in-california_files/figure-html5/unnamed-chunk-2-1.png" alt="Maps showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of the 57 California Counties. (Note: the tree canopy cover data used did not include Alpine County, so it was excluded from all analysis.)" width="75%" data-distill-preview=1 />
 <p class="caption">
 Figure 2: Maps showing the average tree canopy cover percentage and average daily COVID-19 death per capita for each of the 57 California Counties. (Note: the tree canopy cover data used did not include Alpine County, so it was excluded from all analysis.)
 </p>
@@ -1846,23 +1576,6 @@ Figure 2: Maps showing the average tree canopy cover percentage and average dail
 <h2 id="simple-linear-regression">Simple Linear Regression</h2>
 <p>I conducted a simple OLS linear regression to look at the impacts of tree canopy cover percentages on the rate of COVID-19 deaths per positive case. First, I used <code>ggplot</code> to create a scatter plot comparing the tree canopy cover percentage to the rate of COVID-19 deaths per positive case for each of the 57 California counties. Then I used <code>geom_smooth()</code> to plot a simple OLS linear regression of the data. Visually, it appears there is a negative correlation between the two rates (Fig 3).</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>full_data_county_average</span>, 
-         <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>county_treecanopy_pct</span>, 
-             y <span class='op'>=</span> <span class='va'>deaths_per_case_pct</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_smooth</span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span>, method <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Tree Canopy Cover (%)"</span>,
-       y <span class='op'>=</span> <span class='st'>"COVID Deaths per Positive Case (%)"</span>,
-       title <span class='op'>=</span> <span class='st'>"Impacts of Tree Canopy Cover on COVID Deaths per Postive Case \nin California Counties"</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 <div class="figure" style="text-align: left"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
 <img src="impact-of-tree-canopy-cover-on-rate-of-deaths-per-positive-covid-19-case-in-california_files/figure-html5/unnamed-chunk-3-1.png" alt="Correlation plot of tree canopy percentage compared vs. rate of COVID-19 death per positive case for 57 California Counties, including simple linear regression line." width="60%" />
 <p class="caption">
@@ -1871,39 +1584,10 @@ Figure 3: Correlation plot of tree canopy percentage compared vs. rate of COVID
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>deaths_per_case_pct</span> <span class='op'>~</span> <span class='va'>county_treecanopy_pct</span>, data <span class='op'>=</span> <span class='va'>full_data_county_average</span><span class='op'>)</span>
 
-<span class='va'>mod_summary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 </div>
 <p>The results of the OLS regression are shown in figure 4. The results show that there is in fact a negative correlation between tree canopy cover percentage and the rate of COVID-19 deaths per positive cases within California counties. The slope results indicates that for each 1% increase in tree canopy there is a 0.008% decrease in the COVID-19 death rate per positive case. However, the p-value is 0.11 meaning that there is no statistical significance that can be taken from this analysis. Additionally, the R-squared value is 0.05, meaning that only 5% of the variation in the rate of COVID-19 deaths per positive case are explained by average tree canopy cover percentages.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-    beta_knot <span class='op'>=</span> <span class='va'>mod_summary</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>1</span>,<span class='st'>"Estimate"</span><span class='op'>]</span>,
-    beta_one <span class='op'>=</span> <span class='va'>mod_summary</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='st'>"Estimate"</span><span class='op'>]</span>,
-    p_val <span class='op'>=</span> <span class='va'>mod_summary</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='st'>"Pr(&gt;|t|)"</span><span class='op'>]</span>,
-    r_squared <span class='op'>=</span> <span class='va'>mod_summary</span><span class='op'>$</span><span class='va'>r.squared</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Intercept"</span>, <span class='st'>"Slope"</span>, <span class='st'>"P-value"</span>, <span class='st'>"R-Squared"</span><span class='op'>)</span>,
-        caption <span class='op'>=</span> <span class='st'>"Simple Linear Regression Results: Impact of tree canopy cover on rate of COVID-19 deaths per positive case in California"</span>
-      <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span>bootstrap_options <span class='op'>=</span> <span class='st'>"striped"</span>, 
-                full_width <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-4">Table 1: </span>Simple Linear Regression Results: Impact of tree canopy cover on rate of COVID-19 deaths per positive case in California
@@ -1950,22 +1634,7 @@ R-Squared
 </p>
 <h4 id="confidence-interval">Confidence Interval</h4>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>crit_val</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>qt</a></span><span class='op'>(</span><span class='fl'>0.025</span>, df <span class='op'>=</span> <span class='fl'>55</span>, lower.tail <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='va'>point_est</span> <span class='op'>&lt;-</span> <span class='va'>mod_summary</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>, <span class='st'>"Estimate"</span><span class='op'>]</span>
-
-<span class='va'>SE</span> <span class='op'>&lt;-</span> <span class='va'>mod_summary</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>, <span class='st'>"Std. Error"</span><span class='op'>]</span>
-
-<span class='va'>ci_lower</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>point_est</span> <span class='op'>-</span> <span class='op'>(</span><span class='va'>crit_val</span> <span class='op'>*</span> <span class='va'>SE</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>
-<span class='va'>ci_upper</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>point_est</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>crit_val</span> <span class='op'>*</span> <span class='va'>SE</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
 </div>
 <p>I calculated a confidence interval and found that I was 95% confident that the true change in COVID-19 deaths per positive case for each 1% increase in tree canopy cover percentages was withing the range of (-0.000172, 0.000017).</p>
 <h2 id="conclusions-and-future-analysis">Conclusions and Future Analysis</h2>
