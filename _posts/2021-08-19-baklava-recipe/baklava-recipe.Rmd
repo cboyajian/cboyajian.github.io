@@ -2,6 +2,7 @@
 title: "Baklava Recipe"
 description: |
   Boyajian family baklava recipe
+preview: baklava_image.jpg
 author:
   - name: Clarissa Boyajian
 date: 08-19-2021
