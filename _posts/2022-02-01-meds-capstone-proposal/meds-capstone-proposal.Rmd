@@ -4,7 +4,7 @@ description: |
   The Bren School's Master of Environmental Data Science capstone proposal process.
 preview: outdoor_equity_tent_horizontal_greentext.jpg
 author:
-  - name: Clarissa Boyajian
+  - name: Clarissa Boyajian & Halina Do-Lihn
 date: 2022-02-01
 output:
   distill::distill_article:
