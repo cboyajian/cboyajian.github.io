@@ -8,13 +8,23 @@ library(tidyverse)
 ```
 
 ## Education
-**Master of Environmental Data Science** | Expected June 2022\
-Bren School of Environmental Science & Management - University of California, Santa Barbara  
+**Master of Environmental Data Science** | June 2022\
+Bren School of Environmental Science & Management - University of California, Santa Barbara\
+*Capstone:* [The Outdoor Equity App](https://shinyapps.bren.ucsb.edu/oe_app/)
 
 **Bachelors of Arts in Urban & Environmental Policy** | Occidental College | 2013\
 *Thesis:* [Opportunities and Barriers for Access to "Good" Food with a Focus on Participation by Low-income Communities](https://www.oxy.edu/sites/default/files/assets/UEP/Comps/2012/2013/Boyajian_Clarissa_All%20Bulk%20Everything.pdf)\
 *Honors:* Honors with distinction, cum laude\
 *Minor:* Spanish
+
+
+## Environmental Data Scientist Experience
+**Dudek | Urban Forestry Data Scientist | Pasadena, CA | 2022 - present**\
+•	Developed reproducible systems for analyzing inventory sustainability metrics, canopy cover analysis and equity, and other urban forestry data as part of Urban Forestry Management Plans for city and county clients. \
+•	Created comprehensive, clear, and engaging data visualizations including graphs, charts, and maps.\
+•	Reviewed standard details and other technical urban forestry plans and documents. \
+•	Authored sections of Urban Forestry Management Plans relating to topics such as municipal tree management practices, canopy cover equity, and climate resilience.\
+
 
 ## Urban Forestry & Program Management Experience
 **Koreatown Youth & Community Center | Los Angeles, CA | 2017 - 2021**\

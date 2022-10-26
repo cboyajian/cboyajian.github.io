@@ -14,15 +14,16 @@ site: distill::distill_website
 ---
 
 # Bio
-Clarissa is a certified arborist with expertise in urban forestry nonprofit management. She is currently a part of the inaugural cohort of the Master of Environmental Data Science program at the Bren School of Environmental Science & Management. She enjoys talking about her cross-eyed cat, swapping delicious baking recipes, and thinking about how people interact with built and wild environments.
+Clarissa is a certified arborist and trained environmental data scientist with expertise in urban forestry nonprofit management. She currently works as an Urban Forestry Environmental Data Scientist at Dudek in Pasadena, CA on the Urban Forestry Management Plan team. She enjoys talking about her cross-eyed cat, swapping delicious baking recipes, and thinking about how people interact with built and wild environments.
 
 # Education
 **Bren School of Environmental Science & Management, University of California: Santa Barbara**\
-Master of Environmental Data Science (expected June 2022)\
+Master of Environmental Data Science (June 2022)\
 **Occidental College** | Los Angeles, CA\
 Bachelor of Arts in Urban & Environmental Policy (May 2013)\
 
 # Experience
-**National Center for Ecological Analysis & Synthesis** | Arctic Data Center Data Intern | 1/22 - present\
-**Koreatown Youth & Community Center** | Environmental Services Manager | 9/17 - 6/21\
+**Dudek** | Urban Forestry Data Scientist | 7/22 - present\
+**National Center for Ecological Analysis & Synthesis** | Arctic Data Center Data Intern | 1/22 - 3/22\
+**Koreatown Youth & Community Center** | Environmental Services Manager & Urban Forestry Coordinator | 9/17 - 6/21\
 **TreePeople** | Urban Forestry Manager | 10/15 - 9/17
