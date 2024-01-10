@@ -6,4 +6,20 @@ title: "About"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Clarissa is an ISA Certified Arborist with a focus on urban forestry nonprofit management in Los Angeles. She has a master of Environmental Data Science from the Bren School of Environmental Science & Management at UC Santa Barbara and a B.A. in  Urban and Environmental Policy from Occidental College. As a child, she heard stories of her grandparents’ fight to save a beloved Ginkgo tree; this was the seed of her interest in the connection between people and place. She pivoted her career to urban forestry in 2016, training volunteers to plan and execute tree planting and care projects within their own communities. She then shifted to managing the environmental services department of a nonprofit, where she focused on staff development and budgets, wrote successful state grants, and expanded partnerships with the city and other local nonprofits. She now combines her urban forestry professional experience with her data science training to support cities and counties to analyze and visualize data related to their urban forest and equity.
+Clarissa is an ISA Certified Arborist with a focus on urban forestry nonprofit 
+management in Los Angeles. She has a master of Environmental Data Science from 
+the Bren School of Environmental Science & Management at UC Santa Barbara and a 
+B.A. in  Urban and Environmental Policy from Occidental College. As a child, 
+she heard stories of her grandparents’ fight to save a beloved Ginkgo tree; 
+this was the seed of her interest in the connection between people and place. 
+She pivoted her career to urban forestry in 2015, training volunteers to plan 
+and execute tree planting and care projects within their own communities. She 
+then shifted to managing the environmental services department of a nonprofit, 
+where she focused on staff development and budgets, wrote successful state 
+grants, and expanded partnerships with the city and other local nonprofits. 
+After expanding her technical skills at the Bren School, she worked at an 
+environmental consulting firm where she supported municipalities and 
+counties in analyzing and visualizing data related to their urban forest with 
+an emphasis on equity. She is now a technical expert for the City of LA Public 
+Works' Office of Forest Management - focusing on creating the City's first 
+Urban Forest Management Plan, canopy equity, and tree preservation.
